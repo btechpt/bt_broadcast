@@ -1,0 +1,21 @@
+# -*- coding: utf-8 -*-
+# from odoo import http
+
+
+# class BtBroadcast(http.Controller):
+#     @http.route('/bt_broadcast/bt_broadcast/', auth='public')
+#     def index(self, **kw):
+#         return "Hello, world"
+
+#     @http.route('/bt_broadcast/bt_broadcast/objects/', auth='public')
+#     def list(self, **kw):
+#         return http.request.render('bt_broadcast.listing', {
+#             'root': '/bt_broadcast/bt_broadcast',
+#             'objects': http.request.env['bt_broadcast.bt_broadcast'].search([]),
+#         })
+
+#     @http.route('/bt_broadcast/bt_broadcast/objects/<model("bt_broadcast.bt_broadcast"):obj>/', auth='public')
+#     def object(self, obj, **kw):
+#         return http.request.render('bt_broadcast.object', {
+#             'object': obj
+#         })
