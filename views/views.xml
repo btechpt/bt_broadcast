@@ -19,29 +19,34 @@
             <field name="arch" type="xml">
                 <form string="Form Broadcast">
                     <sheet>
+                        <div>
+                            <h2>
+                                <group>
+                                    <field name="name"/>
+                                </group>
+                            </h2>
+                        </div>
                         <group>
                             <group>
-                                <field name="name"/>
+                                <field name="is_notification"/>
+                            </group>
+                            <group>
+                                <field name="type_notification"/>
                             </group>
                         </group>
                         <group>
                             <group>
-                                <group>
-                                    <field name="is_notification"/>
-                                </group>
-                                <group>
-                                    <field name="type_notification"/>
-                                </group>
+                                <field name="type_recevier" widget="radio"/>
                             </group>
                             <group>
-                                <field name="type_recevier" widget="radio"/>
+
+                                <field name="email" attrs="{'invisible':[('type_recevier', '!=', 'email')]}"/>
+                                <field name="specific_users" attrs="{'invisible':[('type_recevier', '!=', 'specific_user')]}" widget="many2many_tags"/>
+                                <field name="department_ids" attrs="{'invisible': [('type_recevier', '!=', 'department')]}" widget="many2many_tags"/>
                             </group>
                         </group>
                         <group>
                             <field name="description" widget="html"/>
-                            <field name="email"/>
-                            <field name="specific_users" widget="many2many_tags"/>
-                            <field name="department_ids" widget="many2many_tags"/>
                         </group>
                     </sheet>
                 </form>
