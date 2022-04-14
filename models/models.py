@@ -8,7 +8,7 @@ class Broadcast(models.Model):
     _description = 'a model for broadcast'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char()
+    name = fields.Char(string='Broadcast', required=True)
     description = fields.Text()
     is_notification = fields.Boolean(help='Show notification web',)
     type_notification = fields.Selection(
