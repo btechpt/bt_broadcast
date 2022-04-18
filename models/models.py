@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields
+from odoo import models, fields, api, _
 
 
 class Broadcast(models.Model):
@@ -8,7 +8,7 @@ class Broadcast(models.Model):
     _description = 'a model for broadcast'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char()
+    name = fields.Char(string='Broadcast', required=True)
     description = fields.Text()
     is_notification = fields.Boolean(help='Show notification web',)
     type_notification = fields.Selection(
@@ -29,3 +29,14 @@ class Broadcast(models.Model):
     email = fields.Text()
     specific_users = fields.Many2many('res.users', string='Users')
     department_ids = fields.Many2many('hr.department')
+
+    @api.onchange('type_recevier')
+    def _onchange_type_recevier(self):
+        if self.type_recevier == 'email':
+            return {'value': {'specific_users': [], 'department_ids': []}}
+        if self.type_recevier == 'specific_user':
+            return {'value': {'email': '', 'department_ids': []}}
+        if self.type_recevier == 'all_user':
+            return {'value': {'email': '', 'specific_users': [], 'department_ids': []}}
+        if self.type_recevier == 'department':
+            return {'value': {'email': '', 'specific_users': []}}

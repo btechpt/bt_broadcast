@@ -1,60 +1,83 @@
 <odoo>
-  <data>
-    <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="bt_broadcast.list">
-      <field name="name">bt_broadcast list</field>
-      <field name="model">bt_broadcast.bt_broadcast</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
-    </record>
--->
+    <data>
+        <record model="ir.ui.view" id="bt_broadcast.list">
+            <field name="name">Broadcast</field>
+            <field name="model">bt_broadcast.broadcast</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="is_notification"/>
+                    <field name="type_notification"/>
+                    <field name="type_recevier"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="bt_broadcast.form">
 
-    <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="bt_broadcast.action_window">
-      <field name="name">bt_broadcast window</field>
-      <field name="res_model">bt_broadcast.bt_broadcast</field>
-      <field name="view_mode">tree,form</field>
-    </record>
--->
+            <field name="name">Form Broadcast</field>
+            <field name="model">bt_broadcast.broadcast</field>
+            <field name="arch" type="xml">
+                <form string="Form Broadcast">
+                    <sheet>
+                        <div>
+                            <h2>
+                                <group>
+                                    <field name="name"/>
+                                </group>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="is_notification"/>
+                            </group>
+                            <group>
+                                <field name="type_notification"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="type_recevier" widget="radio"/>
+                            </group>
+                            <group>
 
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="bt_broadcast.action_server">
-      <field name="name">bt_broadcast server</field>
-      <field name="model_id" ref="model_bt_broadcast_bt_broadcast"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
+                                <field name="email" attrs="{'invisible':[('type_recevier', '!=', 'email')]}"/>
+                                <field name="specific_users" attrs="{'invisible':[('type_recevier', '!=', 'specific_user')]}" widget="many2many_tags"/>
+                                <field name="department_ids" attrs="{'invisible': [('type_recevier', '!=', 'department')]}" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description" widget="html"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-    <!-- Top menu item -->
-<!--
-    <menuitem name="bt_broadcast" id="bt_broadcast.menu_root"/>
--->
-    <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="bt_broadcast.menu_1" parent="bt_broadcast.menu_root"/>
-    <menuitem name="Menu 2" id="bt_broadcast.menu_2" parent="bt_broadcast.menu_root"/>
--->
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="bt_broadcast.menu_1_list" parent="bt_broadcast.menu_1"
-              action="bt_broadcast.action_window"/>
-    <menuitem name="Server to list" id="bt_broadcast" parent="bt_broadcast.menu_2"
-              action="bt_broadcast.action_server"/>
--->
-  </data>
+        <record model="ir.actions.act_window" id="bt_broadcast.action_broadcast">
+            <field name="name">Broadcast</field>
+            <field name="res_model">bt_broadcast.broadcast</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Top menu item -->
+        <menuitem name="Broadcast" id="bt_broadcast.menu_root" active="True" sequence="3"/>
+        <!-- menu categories -->
+        <menuitem name="Broadcast"
+                  id="bt_broadcast.menu_broadcast"
+                  parent="bt_broadcast.menu_root"
+                  action="bt_broadcast.action_broadcast"
+                  sequence="1"
+        />
+        <!--
+            <menuitem name="Menu 1" id="bt_broadcast.menu_1" parent="bt_broadcast.menu_root"/>
+            <menuitem name="Menu 2" id="bt_broadcast.menu_2" parent="bt_broadcast.menu_root"/>
+        -->
+        <!-- actions -->
+        <!--
+            <menuitem name="List" id="bt_broadcast.menu_1_list" parent="bt_broadcast.menu_1"
+                      action="bt_broadcast.action_window"/>
+            <menuitem name="Server to list" id="bt_broadcast" parent="bt_broadcast.menu_2"
+                      action="bt_broadcast.action_server"/>
+        -->
+    </data>
 </odoo>
