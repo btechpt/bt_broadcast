@@ -18,6 +18,11 @@
             <field name="model">bt_broadcast.broadcast</field>
             <field name="arch" type="xml">
                 <form string="Form Broadcast">
+                    <header>
+                        <button name="action_send_broadcast"
+                                string="Send Broadcast" type="object"
+                                class="oe_highlight"/>
+                    </header>
                     <sheet>
                         <div>
                             <h2>

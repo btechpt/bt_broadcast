@@ -30,8 +30,14 @@ class Broadcast(models.Model):
     specific_users = fields.Many2many('res.users', string='Users')
     department_ids = fields.Many2many('hr.department')
 
-    def send_mail(self):
-        print('send mail')
+    def action_send_broadcast(self):
+        list_emails = self.email.split(',')
+        for email in list_emails:
+            template = self.env.ref('bt_broadcast.mail_template_starter', raise_if_not_found=False)
+            if self.description:
+                template.body_html = self.description
+            template.email_to = email
+            template.send_mail(self.id, force_send=True)
 
     @api.onchange('type_recevier')
     def _onchange_type_recevier(self):
