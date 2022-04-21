@@ -29,3 +29,7 @@ class Broadcast(models.Model):
     email = fields.Text()
     specific_users = fields.Many2many('res.users', string='Users')
     department_ids = fields.Many2many('hr.department')
+
+    def send_mail(self):
+        print('send mail')
+
