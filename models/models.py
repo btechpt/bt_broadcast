@@ -10,20 +10,20 @@ class Broadcast(models.Model):
 
     name = fields.Char(string='Broadcast', required=True)
     description = fields.Text()
-    is_notification = fields.Boolean(help='Show notification web',)
+    is_notification = fields.Boolean(help='Show notification web', )
     type_notification = fields.Selection(
         selection=[
-                    ("info", "Info"),
-                    ("warning", "Warning"),
-                    ("danger", "Danger")],
+            ("info", "Info"),
+            ("warning", "Warning"),
+            ("danger", "Danger")],
         default='info'
     )
     type_recevier = fields.Selection(
         selection=[
-                    ("email", "Email"),
-                    ("specific_user", "Specific User"),
-                    ("all_user", "All User"),
-                    ("department", "Department")],
+            ("email", "Email"),
+            ("specific_user", "Specific User"),
+            ("all_user", "All User"),
+            ("department", "Department")],
         default='all_user'
     )
     email = fields.Text()
@@ -31,12 +31,59 @@ class Broadcast(models.Model):
     department_ids = fields.Many2many('hr.department')
 
     def action_send_broadcast(self):
+        if self.type_recevier == 'email':
+            self.do_send_mail()
+        elif self.type_recevier == 'department':
+            self.do_send_department()
+        elif self.type_recevier == 'specific_user':
+            self.do_send_users()
+        elif self.type_recevier == 'all_user':
+            self.do_send_all_users()
+
+    def do_send_mail(self):
         list_emails = self.email.split(',')
         for email in list_emails:
             template = self.env.ref('bt_broadcast.mail_template_starter', raise_if_not_found=False)
             if self.description:
                 template.body_html = self.description
             template.email_to = email
+            template.subject = self.name
+            template.send_mail(self.id, force_send=True)
+
+    def do_send_users(self):
+        list_users = self.specific_users
+        template = self.env.ref('bt_broadcast.mail_template_starter', raise_if_not_found=False)
+        for user in list_users:
+            template.subject = self.name
+            template.email_to = user.email
+            if self.description:
+                template.body_html = self.description
+            template.send_mail(self.id, force_send=True)
+
+    def do_send_all_users(self):
+        users = self.env['res.users'].search([])
+        template = self.env.ref('bt_broadcast.mail_template_starter', raise_if_not_found=False)
+        for user in users:
+            template.subject = self.name
+            template.email_to = user.email
+            if self.description:
+                template.body_html = self.description
+            template.send_mail(self.id, force_send=True)
+
+    def do_send_department(self):
+        departments = self.department_ids
+        department = [department for department in departments]
+        list_department = [department_one.member_ids for department_one in department]
+        email_list = []
+        template = self.env.ref('bt_broadcast.mail_template_starter', raise_if_not_found=False)
+        for employee in list_department:
+            for employee_one in employee:
+                email_list.append(employee_one.user_id.email)
+        for email in email_list:
+            template.subject = self.name
+            template.email_to = email
+            if self.description:
+                template.body_html = self.description
             template.send_mail(self.id, force_send=True)
 
     @api.onchange('type_recevier')
