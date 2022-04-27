@@ -63,6 +63,16 @@ class Broadcast(models.Model):
     def do_send_all_users(self):
         users = self.env['res.users'].search([])
         template = self.env.ref('bt_broadcast.mail_template_starter', raise_if_not_found=False)
+
+        channel_general = self.env["mail.channel"].search([('name', '=', 'general')],limit=1)
+        odoobot = self.env.ref('base.partner_root')
+        channel_general.message_post(
+            body=self.description,
+            subject=self.name,
+            author_id=odoobot.id,
+            message_type='comment',
+            subtype_xmlid='mail.mt_comment',
+        )
         for user in users:
             template.subject = self.name
             template.email_to = user.email
