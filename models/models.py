@@ -64,8 +64,9 @@ class Broadcast(models.Model):
         users = self.env['res.users'].search([])
         template = self.env.ref('bt_broadcast.mail_template_starter', raise_if_not_found=False)
 
-        channel_general = self.env["mail.channel"].search([('name', '=', 'general')],limit=1)
+        channel_general = self.env["mail.channel"].search([('name', '=', 'general')], limit=1)
         odoobot = self.env.ref('base.partner_root')
+        # Sending message to channel general
         channel_general.message_post(
             body=self.description,
             subject=self.name,
