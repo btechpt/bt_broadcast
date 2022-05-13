@@ -21,7 +21,6 @@
                     <header>
                         <button name="action_send_broadcast"
                                 string="Send Broadcast" type="object"
-                                attrs="{'invisible': [('is_notification', '=', True)]}"
                                 class="oe_highlight"/>
                     </header>
                     <sheet>
