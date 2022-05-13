@@ -31,14 +31,18 @@ class Broadcast(models.Model):
     department_ids = fields.Many2many('hr.department')
 
     def action_send_broadcast(self):
-        if self.type_recevier == 'email':
-            self.do_send_mail()
-        elif self.type_recevier == 'department':
-            self.do_send_department()
-        elif self.type_recevier == 'specific_user':
-            self.do_send_users()
-        elif self.type_recevier == 'all_user':
-            self.do_send_all_users()
+        env_mode = self.env['bt_broadcast.setting'].sudo().search([('setting_key', '=', 'environtment_mode')])
+        if env_mode.setting_value == 1:
+            if self.type_recevier == 'email':
+                self.do_send_mail()
+            elif self.type_recevier == 'department':
+                self.do_send_department()
+            elif self.type_recevier == 'specific_user':
+                self.do_send_users()
+            elif self.type_recevier == 'all_user':
+                self.do_send_all_users()
+        else:
+            print("environment mode debug")
 
     def do_send_mail(self):
         list_emails = self.email.split(',')
@@ -107,3 +111,12 @@ class Broadcast(models.Model):
             return {'value': {'email': '', 'specific_users': [], 'department_ids': []}}
         if self.type_recevier == 'department':
             return {'value': {'email': '', 'specific_users': []}}
+
+
+class Setting(models.Model):
+    _name = "bt_broadcast.setting"
+    _description = "Model for storing Personal settings"
+
+    setting_key = fields.Char(string=_("Key Pengaturan"))
+    setting_value = fields.Text(string=_("Isi Pengaturan"))
+    setting_desc = fields.Text(string=_("Deskripsi Pengaturan"))

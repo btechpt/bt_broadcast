@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="data_bt_broadcast_environment_mode" model="bt_broadcast.setting">
+            <field name="setting_value">1</field>
+            <field name="setting_key">environment_mode</field>
+            <field name="setting_desc">Environtment</field>
+        </record>
+    </data>
+</odoo>
