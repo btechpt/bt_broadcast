@@ -44,11 +44,13 @@ class Broadcast(models.Model):
         list_emails = self.email.split(',')
         for email in list_emails:
             template = self.env.ref('bt_broadcast.mail_template_starter', raise_if_not_found=False)
-            if self.description:
-                template.body_html = self.description
             template.email_to = email
-            template.subject = self.name
-            template.send_mail(self.id, force_send=True)
+            context = {
+                'email_to': email,
+                'subject': self.name,
+                'body_html': self.description,
+            }
+            template.with_context(context).send_mail(self.id, force_send=True)
 
     def do_send_users(self):
         list_users = self.specific_users
