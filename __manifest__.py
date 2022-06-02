@@ -3,11 +3,11 @@
     'name': "Broadcast",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Broadcast messages to all devices
+        """,
 
     'description': """
-        Long description of module's purpose
+        Broadcast messages to all devices
     """,
 
     'author': "Btech Techonology",
