@@ -31,8 +31,8 @@ class Broadcast(models.Model):
     department_ids = fields.Many2many('hr.department')
 
     def action_send_broadcast(self):
-        env_mode = self.env['bt_broadcast.setting'].sudo().search([('setting_key', '=', 'environtment_mode')])
-        if env_mode.setting_value == 1:
+        env_mode = self.env['bt_broadcast.setting'].sudo().search([('setting_key', '=', 'environment_mode')])
+        if int(env_mode.setting_value) == 1:
             if self.type_recevier == 'email':
                 self.do_send_mail()
             elif self.type_recevier == 'department':
@@ -52,19 +52,20 @@ class Broadcast(models.Model):
             context = {
                 'email_to': email,
                 'subject': self.name,
-                'body_html': self.description,
             }
+            template.body_html = self.description
             template.with_context(context).send_mail(self.id, force_send=True)
 
     def do_send_users(self):
         list_users = self.specific_users
         template = self.env.ref('bt_broadcast.mail_template_starter', raise_if_not_found=False)
         for user in list_users:
-            template.subject = self.name
-            template.email_to = user.email
-            if self.description:
-                template.body_html = self.description
-            template.send_mail(self.id, force_send=True)
+            context = {
+                'email_to': user.email,
+                'subject': self.name,
+            }
+            template.body_html = self.description
+            template.with_context(context).send_mail(self.id, force_send=True)
 
     def do_send_all_users(self):
         users = self.env['res.users'].search([])
@@ -81,11 +82,12 @@ class Broadcast(models.Model):
             subtype_xmlid='mail.mt_comment',
         )
         for user in users:
-            template.subject = self.name
-            template.email_to = user.email
-            if self.description:
-                template.body_html = self.description
-            template.send_mail(self.id, force_send=True)
+            context = {
+                'email_to': user.email,
+                'subject': self.name,
+            }
+            template.body_html = self.description
+            template.with_context(context).send_mail(self.id, force_send=True)
 
     def do_send_department(self):
         departments = self.department_ids
@@ -97,11 +99,12 @@ class Broadcast(models.Model):
             for employee_one in employee:
                 email_list.append(employee_one.user_id.email)
         for email in email_list:
-            template.subject = self.name
-            template.email_to = email
-            if self.description:
-                template.body_html = self.description
-            template.send_mail(self.id, force_send=True)
+            context = {
+                'email_to': email,
+                'subject': self.name,
+            }
+            template.body_html = self.description
+            template.with_context(context).send_mail(self.id, force_send=True)
 
     @api.onchange('type_recevier')
     def _onchange_type_recevier(self):

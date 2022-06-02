@@ -7,9 +7,7 @@
             <field name="email_to">${ctx['email_to']}</field>
             <field name="subject">${ctx['subject']}</field>
             <field name="body_html" type="html">
-                <![CDATA[
-                    <p>${ctx['body_html']}</p>
-                ]]>
+                <p>${ctx['body_html']}</p>
             </field>
             <field name="auto_delete" eval="True"/>
         </record>
