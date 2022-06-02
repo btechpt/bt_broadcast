@@ -30,6 +30,7 @@
         "security/ir.model.access.csv",
         "security/security.xml",
         'data/mail_template_standalone.xml',
+        'data/data_setting.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
