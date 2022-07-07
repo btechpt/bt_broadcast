@@ -3,11 +3,11 @@
     'name': "Broadcast",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Broadcast messages to all devices
+        """,
 
     'description': """
-        Long description of module's purpose
+        Broadcast messages to all devices
     """,
 
     'author': "Btech Techonology",
@@ -30,6 +30,7 @@
         "security/ir.model.access.csv",
         "security/security.xml",
         'data/mail_template_standalone.xml',
+        'data/data_setting.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

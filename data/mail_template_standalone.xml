@@ -4,13 +4,10 @@
         <record id="mail_template_starter" model="mail.template">
             <field name="name">Email Template Starter</field>
             <field name="model_id" ref="bt_broadcast.model_bt_broadcast_broadcast"/>
-            <field name="email_to">${object.email}</field>
-            <field name="subject">Email Starter Notification </field>
+            <field name="email_to">${ctx['email_to']}</field>
+            <field name="subject">${ctx['subject']}</field>
             <field name="body_html" type="html">
-                <p>Hello,</p>
-                <p>This is a test email template.</p>
-                <p>Here is an image: <img src="cid:image1" /></p>
-                <p>Here is a link: <a href="http://www.odoo.com">Odoo</a></p>
+                <p>${ctx['body_html']}</p>
             </field>
             <field name="auto_delete" eval="True"/>
         </record>
