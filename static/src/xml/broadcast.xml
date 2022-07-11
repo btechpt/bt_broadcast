@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+    <t t-extend="Menu">
+        <t t-jquery="nav.o_main_navbar" t-operation="after">
+            <div id="broadcast-alert" />
+        </t>
+    </t>
+</template>
+
+

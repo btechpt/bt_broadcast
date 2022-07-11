@@ -19,7 +19,7 @@
             <field name="arch" type="xml">
                 <form string="Form Broadcast">
                     <header>
-                        <button name="action_send_broadcast"
+                        <button name="action_broadcast"
                                 string="Send Broadcast" type="object"
                                 class="oe_highlight"/>
                     </header>
