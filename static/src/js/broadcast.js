@@ -21,10 +21,9 @@ odoo.define("web_company_logo.Menu", function (require) {
           var result = JSON.parse(result);
           const element = document.getElementById("broadcast-alert");
           let notifAlert = `
-            <div class="alert alert-${result.type_notification} alert-dismissible fade show" role="alert">
+            <div class="alert alert-${result.type_notification}" role="alert">
               <p>${result.description}</p>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-            </div>
+            </div>            
             `;
 
           if (result.description) {
