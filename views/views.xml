@@ -21,7 +21,8 @@
                     <header>
                         <button name="action_broadcast"
                                 string="Send Broadcast" type="object"
-                                class="oe_highlight"/>
+                                class="oe_highlight"
+                                confirm="Apakah Anda yakin akan mengirim pesan broadcast ini?"/>
                     </header>
                     <sheet>
                         <div>
