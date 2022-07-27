@@ -19,41 +19,32 @@
             <field name="arch" type="xml">
                 <form string="Form Broadcast">
                     <header>
-                        <button name="action_broadcast"
-                                string="Send Broadcast" type="object"
-                                class="oe_highlight"
-                                confirm="Apakah Anda yakin akan mengirim pesan broadcast ini?"/>
+                        <button name="action_broadcast" string="Send Broadcast" type="object" class="oe_highlight" confirm="Apakah Anda yakin akan mengirim pesan broadcast ini?" attrs="{'invisible':[('type_broadcast', '=', 'notification')]}"/>
                     </header>
                     <sheet>
-                        <div>
-                            <h2>
-                                <group>
-                                    <field name="name"/>
-                                </group>
-                            </h2>
+                        <div class="oe_title">
+                            <field name="type_broadcast" widget="radio" class="oe_edit_only" options="{'horizontal': true}"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
                         </div>
                         <group>
                             <group>
-                                <field name="is_notification"/>
+                                <field name="is_notification" attrs="{'invisible':[('type_broadcast', '!=', 'notification')]}"/>
+                                <field name="type_recevier" widget="radio" attrs="{'invisible':[('type_broadcast', '=', 'notification')]}"/>
                             </group>
                             <group>
-                                <field name="type_notification"/>
+                                <field name="type_notification" attrs="{'invisible':[('type_broadcast', '!=', 'notification')]}"/>
+                                <field name="email" attrs="{'invisible':['|',('type_recevier', '!=', 'email'),('type_broadcast', '=', 'notification')]}"/>
+                                <field name="specific_users" attrs="{'invisible':['|',('type_recevier', '!=', 'specific_user'),('type_broadcast', '=', 'notification')]}" widget="many2many_tags"/>
+                                <field name="department_ids" attrs="{'invisible': ['|',('type_recevier', '!=', 'department'),('type_broadcast', '=', 'notification')]}" widget="many2many_tags"/>
                             </group>
                         </group>
-                        <group>
-                            <group>
-                                <field name="type_recevier" widget="radio"/>
-                            </group>
-                            <group>
-
-                                <field name="email" attrs="{'invisible':[('type_recevier', '!=', 'email')]}"/>
-                                <field name="specific_users" attrs="{'invisible':[('type_recevier', '!=', 'specific_user')]}" widget="many2many_tags"/>
-                                <field name="department_ids" attrs="{'invisible': [('type_recevier', '!=', 'department')]}" widget="many2many_tags"/>
-                            </group>
-                        </group>
-                        <group>
-                            <field name="description" widget="html"/>
-                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" widget="html"/>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -68,22 +59,15 @@
         <!-- Top menu item -->
         <menuitem name="Broadcast" id="bt_broadcast.menu_root" active="True" sequence="3"/>
         <!-- menu categories -->
-        <menuitem name="Broadcast"
-                  id="bt_broadcast.menu_broadcast"
-                  parent="bt_broadcast.menu_root"
-                  action="bt_broadcast.action_broadcast"
-                  sequence="1"
-        />
+        <menuitem name="Broadcast" id="bt_broadcast.menu_broadcast" parent="bt_broadcast.menu_root" action="bt_broadcast.action_broadcast" sequence="1" />
         <!--
             <menuitem name="Menu 1" id="bt_broadcast.menu_1" parent="bt_broadcast.menu_root"/>
             <menuitem name="Menu 2" id="bt_broadcast.menu_2" parent="bt_broadcast.menu_root"/>
         -->
         <!-- actions -->
         <!--
-            <menuitem name="List" id="bt_broadcast.menu_1_list" parent="bt_broadcast.menu_1"
-                      action="bt_broadcast.action_window"/>
-            <menuitem name="Server to list" id="bt_broadcast" parent="bt_broadcast.menu_2"
-                      action="bt_broadcast.action_server"/>
+            <menuitem name="List" id="bt_broadcast.menu_1_list" parent="bt_broadcast.menu_1" action="bt_broadcast.action_window"/>
+            <menuitem name="Server to list" id="bt_broadcast" parent="bt_broadcast.menu_2" action="bt_broadcast.action_server"/>
         -->
     </data>
 </odoo>
