@@ -24,7 +24,7 @@ class Broadcast(models.Model):
             ("specific_user", "Specific User"),
             ("all_user", "All User"),
             ("department", "Department")],
-        default='all_user'
+        default='all_user', string="Type Receiver"
     )
     type_broadcast = fields.Selection(
         selection=[
