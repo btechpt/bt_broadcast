@@ -10,7 +10,7 @@ class Broadcast(models.Model):
 
     name = fields.Char(string='Broadcast', required=True)
     description = fields.Text()
-    is_notification = fields.Boolean(string='Notification',help='Show notification web', )
+    is_notification = fields.Boolean(string='Notification Active?',help='Show notification web', )
     type_notification = fields.Selection(
         selection=[
             ("info", "Info"),
@@ -24,13 +24,25 @@ class Broadcast(models.Model):
             ("specific_user", "Specific User"),
             ("all_user", "All User"),
             ("department", "Department")],
-        default='all_user'
+        default='all_user', string="Type Receiver"
     )
-    email = fields.Text()
+    type_broadcast = fields.Selection(
+        selection=[
+            ("broadcast", "Broadcast"),
+            ("notification", "Notification")],
+        default='notification'
+    )
+    email = fields.Text(help='Email dapat diisi lebih dari satu, dan pisahkan dengan tanda koma (,)')
     specific_users = fields.Many2many('res.users', string='Users')
-    department_ids = fields.Many2many('hr.department')    
+    department_ids = fields.Many2many('hr.department')   
 
-    # action broadcast
+    @api.onchange('type_broadcast')
+    def get_type(self):
+        for rec in self:
+            if rec.type_broadcast == 'broadcast':
+                self.is_notification = False
+                
+    # action broadcastsdb
     def action_broadcast(self):
         odoobot = self.env.ref('base.partner_root')
         emails = []
