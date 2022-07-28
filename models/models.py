@@ -10,7 +10,7 @@ class Broadcast(models.Model):
 
     name = fields.Char(string='Broadcast', required=True)
     description = fields.Text()
-    is_notification = fields.Boolean(string='Notification',help='Show notification web', )
+    is_notification = fields.Boolean(string='Notification Active?',help='Show notification web', )
     type_notification = fields.Selection(
         selection=[
             ("info", "Info"),

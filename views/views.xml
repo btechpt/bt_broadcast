@@ -6,9 +6,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="is_notification"/>
-                    <field name="type_notification"/>
-                    <field name="type_recevier"/>
+                    <field name="type_broadcast"/>
                 </tree>
             </field>
         </record>
@@ -60,14 +58,5 @@
         <menuitem name="Broadcast" id="bt_broadcast.menu_root" active="True" sequence="3"/>
         <!-- menu categories -->
         <menuitem name="Broadcast" id="bt_broadcast.menu_broadcast" parent="bt_broadcast.menu_root" action="bt_broadcast.action_broadcast" sequence="1" />
-        <!--
-            <menuitem name="Menu 1" id="bt_broadcast.menu_1" parent="bt_broadcast.menu_root"/>
-            <menuitem name="Menu 2" id="bt_broadcast.menu_2" parent="bt_broadcast.menu_root"/>
-        -->
-        <!-- actions -->
-        <!--
-            <menuitem name="List" id="bt_broadcast.menu_1_list" parent="bt_broadcast.menu_1" action="bt_broadcast.action_window"/>
-            <menuitem name="Server to list" id="bt_broadcast" parent="bt_broadcast.menu_2" action="bt_broadcast.action_server"/>
-        -->
     </data>
 </odoo>
