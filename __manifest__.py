@@ -25,11 +25,11 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        "security/security.xml",
+        "security/ir.model.access.csv",
         'views/assets.xml',
         'views/views.xml',
         'views/templates.xml',
-        "security/security.xml",
-        "security/ir.model.access.csv",
         'data/mail_template_standalone.xml',
         'data/data_setting.xml',
     ],
