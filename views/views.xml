@@ -55,7 +55,7 @@
         </record>
 
         <!-- Top menu item -->
-        <menuitem name="Broadcast" id="bt_broadcast.menu_root" active="True" sequence="3"/>
+        <menuitem name="Broadcast" id="bt_broadcast.menu_root" active="True" sequence="3" web_icon="bt_broadcast,static/description/icon.png"/>
         <!-- menu categories -->
         <menuitem name="Broadcast" id="bt_broadcast.menu_broadcast" parent="bt_broadcast.menu_root" action="bt_broadcast.action_broadcast" sequence="1" />
     </data>
