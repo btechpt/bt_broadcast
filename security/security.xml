@@ -6,16 +6,11 @@
             <field name="description">Category For Broadcast</field>
         </record>
 
-        <record id="group_broadcast_officer" model="res.groups">
-            <field name="name">Officer</field>
+        <record id="group_broadcast_administrator" model="res.groups">
+            <field name="name">Administrator</field>
             <field name="category_id" ref="bt_broadcast.module_category_broadcast"/>
-        </record>
-
-        <record id="group_broadcast_director" model="res.groups">
-            <field name="name">Director</field>
-            <field name="category_id" ref="bt_broadcast.module_category_broadcast"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
             <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
-
     </data>
 </odoo>
