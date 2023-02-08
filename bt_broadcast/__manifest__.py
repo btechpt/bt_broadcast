@@ -3,11 +3,11 @@
     'name': "Broadcast",
 
     'summary': """
-        Broadcast messages to all devices
+        Easy send message and pin alert message
         """,
 
     'description': """
-        Broadcast messages to all devices
+        Easy send message and pin alert message
     """,
 
     'author': "Btech Techonology",
