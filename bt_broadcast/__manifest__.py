@@ -10,7 +10,7 @@
         Easy send message and pin alert message
     """,
 
-    'author': "Btech Techonology",
+    'author': "Boer Technology",
     'website': "https://btech.id",
 
     # Categories can be used to filter modules in modules listing
