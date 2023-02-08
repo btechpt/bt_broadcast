@@ -3,11 +3,11 @@
     'name': "Broadcast",
 
     'summary': """
-        Broadcast messages to all devices
+        Easy send message and pin alert message
         """,
 
     'description': """
-        Broadcast messages to all devices
+        Easy send message and pin alert message
     """,
 
     'author': "Btech Techonology",
@@ -44,4 +44,5 @@
     'application': True,
     'auto_install': False,
     'license': 'GPL-3',
+    'images': ['static/description/images/main_screenshot.png']
 }
