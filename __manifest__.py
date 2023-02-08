@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail','hr'],
+    'depends': ['base', 'mail', 'hr'],
 
     # always loaded
     'data': [
@@ -43,4 +43,5 @@
     'installable': True,
     'application': True,
     'auto_install': False,
+    'license': 'GPL-3',
 }
