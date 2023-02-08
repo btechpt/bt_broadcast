@@ -44,4 +44,5 @@
     'application': True,
     'auto_install': False,
     'license': 'GPL-3',
+    'images': ['static/description/images/main_screenshot.png']
 }
